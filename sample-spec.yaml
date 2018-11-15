@@ -1,0 +1,29 @@
+agile-core: #service name matching the resolvable (IP reachable) name if the service container
+  swagger_api_spec: ./agile-core.yml
+  calls:
+    #operationId matching an operationId in the referenced swagger_api_spec
+    Status: #OperationId from the swagger specification
+      entityId: {deviceId}  #deviceId is parsed from the swagger (according to “path spec”)
+      entityType: device  #a fixed string “device”
+      field: actions.status #a fixed string actions.status
+      method: read #can only be read or write.
+    Execute: #OperationId from the swagger specification
+      entityId: {deviceId}  #deviceId is parsed from the swagger (according to “path spec”)
+      entityType: device  
+      field: actions.{deviceId}.{command} #deviceId and command from the “path spec”. For a request to “/device/ble_11223344/execute/on” this should resolve to “ble_11223344.on” 
+      method: read #can only be read or write.
+    Register: #OperationId from the swagger specification
+      entityId: device.{overview.id}  #overview from RegisterPayload definition and id from DeviceOverview from the body
+      entityType: device  
+      field: actions.protocol.{protocol} # string including protocol from DeviceOverview in the swagger spec 
+      method: write #can only be read or write.
+agile-pap: #service name matching the resolvable (IP reachable) name if the service container
+  swagger_api_spec: ./pap-api.yml
+  calls:
+    ReadFieldEntityPolicy:
+      entityId: {entityId}  #entityId is parsed from the swagger (according to “path spec”)
+      entityType: {entityType}  #entityType is parsed from the swagger (according to “path spec”)
+      field: actions.{field} #field is parsed from the swagger (according to “path spec”)
+      method: read #can only be read or write.
+
+
