@@ -1,11 +1,8 @@
 # Enforcer Yaml Specification
 
-This document describes the specification of the configuration files used by the agile-enforcer to map requests sent to several services running in the gateway to policy decisions performed by agile-security.
+This document specifies the behaviour of the encorcement proxy for the agile-stack. To this end, we explain message flow, and the configuration specification. The specification includes a yml file referncing a swagger specification.
 
-This repository has a description of the configuration format, and an example in ``sample-spec.yaml``
-
-
-***Terms used***
+## Terms used
 
 **ServiceName:** name used to reach the container in the container
 (internal docker or balena network) network.  In the following example,
@@ -22,6 +19,34 @@ specified pattern, including fixed strings, and fields specified in the
 swagger API spec referenced by the OperationId
 
 **Path:** File path for the yaml file
+
+## Message Flow
+
+The enforcer needs to get HTTP requests from the external network interface that contain an Authorization bearer HTTP header. This header shoud be passed to the agile-security component to get the currentUserInfo. This ensures that users are logged in. An example is available in the authentication middleware agile-ui:
+
+https://github.com/Agile-IoT/agile-ui/blob/master/server.js#L14
+
+Requests should be mapped to the ServiceName such that requests starting with the serviceName in the path are forwarded to that container. For examples, see the agile-ui current proxying behaviour:
+
+https://github.com/Agile-IoT/agile-ui/blob/master/server.js#L54
+
+For example, a request starting with /agile-core/ should be forwarded to agile-core container in the local container network, if the policy decision call returns true.
+
+## Integration Considerations
+
+There are at least two possibilities to integrate the enforcement:
+ 
+  1) as a stand-alone service: this implies that the service needs to provide the proper CORS headers to allow cross-origin requests from external domains loading pages, e.g. the agile-ui. This was documented in the D5.3
+  2) as an extension to the agile-ui: If the mapping of requests received by the enforcer are mapped to pdp calls in node.js, this could be integrated directly into the UI (following the pointers mentioned previously). The main advantage is that in this way, the enforcer does not need to send CORS headers and be instantiated as a micro-service with a separate compose file.
+
+
+
+## Configuration
+This section describes the specification of the configuration files used by the agile-enforcer to map requests sent to several services running in the gateway to policy decisions performed by agile-security.
+
+This repository has a description of the configuration format, and an example in ``sample-spec.yaml``
+
+
 
 The YML file contains multiple ServiceName(s) in the top level. Each
 ServiceName needs to have:
