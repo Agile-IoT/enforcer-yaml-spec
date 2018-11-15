@@ -1,4 +1,4 @@
-#Enforcer Yaml Specification
+# Enforcer Yaml Specification
 
 This document describes the specification of the configuration files used by the agile-enforcer to map requests sent to several services running in the gateway to policy decisions performed by agile-security.
 
