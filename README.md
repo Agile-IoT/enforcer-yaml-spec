@@ -52,23 +52,23 @@ ServiceName needs to have:
 
  **OperationId1:**
 
-   entityId: **MappedKey **
+   entityId: **MappedKey**
 
-   entityType: **MappedKey **
+   entityType: **MappedKey**
 
-   field: **MappedKey **
+   field: **MappedKey**
 
-   method: **MappedKey **
+   method: **MappedKey**
 
  **OperationId2:**
 
-   entityId: **MappedKey **
+   entityId: **MappedKey**
 
-   entityType: **MappedKey **
+   entityType: **MappedKey**
 
-   field: **MappedKey **
+   field: **MappedKey**
 
-   method: **MappedKey **
+   method: **MappedKey**
 
 **ServiceName2:**
 
@@ -76,23 +76,23 @@ ServiceName needs to have:
 
  **OperationId3:**
 
-  entityId: **MappedKey **
+  entityId: **MappedKey**
 
-   entityType: **MappedKey **
+   entityType: **MappedKey**
 
-   field: **MappedKey **
+   field: **MappedKey**
 
-   method: **MappedKey **
+   method: **MappedKey**
 
  **OperationId4:**
 
-  entityId: **MappedKey **
+  entityId: **MappedKey**
 
-   entityType: **MappedKey **
+   entityType: **MappedKey**
 
-   field: **MappedKey **
+   field: **MappedKey**
 
-   method: **MappedKey **
+   method: **MappedKey**
 
 …
 
@@ -102,10 +102,10 @@ swagger\_api\_spec: **PathN**
 
  **OperationIdM:**
 
-  entityId: **MappedKey **
+  entityId: **MappedKey**
 
-   entityType: **MappedKey **
+   entityType: **MappedKey**
 
-   field: **MappedKey **
+   field: **MappedKey**
 
-   method: **MappedKey **
+   method: **MappedKey**
