@@ -26,8 +26,7 @@ swagger API spec referenced by the OperationId
 The YML file contains multiple ServiceName(s) in the top level. Each
 ServiceName needs to have:
 
--   a pointer in the local file system to the swagger specification of
-    > that service under swagger\_api\_spec.
+-   a pointer in the local file system to the swagger specification of that service under swagger\_api\_spec.
 
 -   A list of calls, where each call is identified by the swagger
     * OperationId (unique in the context of the above
