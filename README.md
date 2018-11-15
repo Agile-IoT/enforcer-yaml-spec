@@ -1,7 +1,9 @@
-<span id="docs-internal-guid-964f743e-7fff-c2e6-3d13-849ba49d2b8d"
-class="anchor"><span
-id="docs-internal-guid-964f743e-7fff-c2e6-3d13-849ba49d2b8d-1"
-class="anchor"></span></span>
+#Enforcer Yaml Specification
+
+This document describes the specification of the configuration files used by the agile-enforcer to map requests sent to several services running in the gateway to policy decisions performed by agile-security.
+
+This repository has a description of the configuration format, and an example in ``sample-spec.yaml``
+
 
 ***Terms used***
 
@@ -28,20 +30,19 @@ ServiceName needs to have:
     > that service under swagger\_api\_spec.
 
 -   A list of calls, where each call is identified by the swagger
-    > OperationId (unique in the context of the above
-    > swagger\_api\_spec), and each call has:
+    * OperationId (unique in the context of the above
+     swagger\_api\_spec), and each call has:
 
-    -   entityId: MappedKey
+    *   entityId: MappedKey
 
-    -   entityType: MappedKey
+    *   entityType: MappedKey
 
-    -   Field: MappedKey
+    *   Field: MappedKey
 
-    -   Method: MappedKey
+    *   Method: MappedKey
 
--   All the above keys must be sent in the JSON payload for the policy
-    > decision call to agile-security:
-    > *https://github.com/Agile-IoT/agile-sdk/blob/master/DOCUMENTATION.md\#agile.policies.pdp.evaluate*
+-   All the above keys must be sent in the JSON payload for the policy decision call to agile-security:
+    *  Agile pdp documentation https://github.com/Agile-IoT/agile-sdk/blob/master/DOCUMENTATION.md\#agile.policies.pdp.evaluate
 
 ***Yml format***
 
