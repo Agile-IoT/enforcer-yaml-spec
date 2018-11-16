@@ -5,8 +5,8 @@ This document specifies the behaviour of the encorcement proxy for the agile-sta
 ## Terms used
 
 **ServiceName:** name used to reach the container in the container
-(internal docker or balena network) network.  In the following example,
-we have two container names agile-core and agile-ui in the top level
+(internal docker or balena network) network.  In the example spec in this repository,
+we have two sample container names agile-core and agile-pap in the top level
 hierarchy of the yml file.
 
 **OperationId**: identifier for a single call from the swagger
@@ -18,7 +18,7 @@ specification. In the case of agile-core.yml a valid operationId is
 specified pattern, including fixed strings, and fields specified in the
 swagger API spec referenced by the OperationId
 
-**Path:** File path for the yaml file
+**Path:** File path for the yaml file containing the swagger yaml specification for the ServiceName where it is included in.
 
 ## Message Flow
 
@@ -31,6 +31,10 @@ Requests should be mapped to the ServiceName such that requests starting with th
 https://github.com/Agile-IoT/agile-ui/blob/master/server.js#L54
 
 For example, a request starting with /agile-core/ should be forwarded to agile-core container in the local container network, if the policy decision call returns true.
+
+Then, the enforcer must use the swagger specification to obtain relevant parameters of each call and create an object containintg entityId, entityType, field and method, according to the configuration provided. These four parameters should be passed the agile-sdk to evaluate a given policy in the agile-security PDP (https://github.com/Agile-IoT/agile-sdk/blob/master/DOCUMENTATION.md\#agile.policies.pdp.evaluate).
+
+If the policy decision point allows the interaction, the proxy forwards the exact same request (including headers, body, etc.) to the destination service (which is reachable under the ServiceName in the container network).
 
 ## Integration Considerations
 
