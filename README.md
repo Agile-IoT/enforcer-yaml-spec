@@ -36,13 +36,7 @@ Then, the enforcer must use the swagger specification to obtain relevant paramet
 
 If the policy decision point allows the interaction, the proxy forwards the exact same request (including headers, body, etc.) to the destination service (which is reachable under the ServiceName in the container network).
 
-## Integration Considerations
-
-There are at least two possibilities to integrate the enforcement:
- 
-  1) as a stand-alone service: this implies that the service needs to provide the proper CORS headers to allow cross-origin requests from external domains loading pages, e.g. the agile-ui. This was documented in the D5.3
-  2) as an extension to the agile-ui: If the mapping of requests received by the enforcer are mapped to pdp calls in node.js, this could be integrated directly into the UI (following the pointers mentioned previously). The main advantage is that in this way, the enforcer does not need to send CORS headers and be instantiated as a micro-service with a separate compose file.
-
+A the enforcement is done as a stand-alone service: this implies that the service needs to provide the proper CORS headers to allow cross-origin requests from external domains loading pages, e.g. the agile-ui. 
 
 
 ## Configuration
