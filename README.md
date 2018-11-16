@@ -1,17 +1,17 @@
 # Enforcer Yaml Specification
 
-This document specifies the behaviour of the encorcement proxy for the agile-stack. To this end, we explain message flow, and the configuration specification. The specification includes a yml file referncing a swagger specification.
+This document specifies the behaviour of the enforcement proxy for the agile-stack (https://github.com/Agile-IoT/agile-enforcer). To this end, we explain message flow, and the configuration specification. The specification includes a yml file referencing a swagger specification.
 
 ## Terms used
 
-**ServiceName:** name used to reach the container in the container
-(internal docker or balena network) network.  In the example spec in this repository,
-we have two sample container names agile-core and agile-pap in the top level
+**ServiceName:** name used to reach the container in the container network
+(internal docker or balena network).  In the example spec in this repository,
+we have two sample container names, agile-core and agile-pap, in the top level
 hierarchy of the yml file.
 
 **OperationId**: identifier for a single call from the swagger
 specification. In the case of agile-core.yml a valid operationId is
-“Status” where the an HTTP request (GET) to the URL
+“Status” where the HTTP request (GET) to the URL
 '/device/{deviceId}/status' is specified.
 
 **MappedKey**: The value for each key should be composed based on the
