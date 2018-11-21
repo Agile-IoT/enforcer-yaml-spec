@@ -49,8 +49,11 @@ This repository has a description of the configuration format, and an example in
 
 
 
-The YML file contains multiple ServiceName(s) in the top level. Each
-ServiceName needs to have:
+The YML file contains multiple ServiceName(s) in the top level. There are two kinds of services: services that are subject to enforcing, or those that are whitelisted, i.e. not requiring any check with the security framework. If the service is whitelisted it should have the following configuration:
+ -   the port where the service API is available  
+ -   whitelisted: yes
+
+Each ServiceName needs to have:
 
 -   a pointer in the local file system to the swagger specification of that service under swagger\_api\_spec.
 -   the port where the service API is available  
@@ -75,6 +78,8 @@ ServiceName needs to have:
 
  swagger\_api\_spec: **Path1**
 
+ port: **port1**
+
  port: **PortNumber**
 
  **OperationId1:**
@@ -98,34 +103,18 @@ ServiceName needs to have:
    method: **MappedKey**
 
 **ServiceName2:**
-
- swagger\_api\_spec: **Path2**
-
- **OperationId3:**
-
-  entityId: **MappedKey**
-
-   entityType: **MappedKey**
-
-   field: **MappedKey**
-
-   method: **MappedKey**
-
- **OperationId4:**
-
-  entityId: **MappedKey**
-
-   entityType: **MappedKey**
-
-   field: **MappedKey**
-
-   method: **MappedKey**
-
+   
+   whitelisted: **yes**
+   
+   port: **port2**
 …
 
 **ServiceNameN:**
 
 swagger\_api\_spec: **PathN**
+
+port: **portN**
+
 
  **OperationIdM:**
 
