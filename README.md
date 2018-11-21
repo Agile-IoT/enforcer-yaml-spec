@@ -6,7 +6,7 @@ This document specifies the behaviour of the enforcement proxy for the agile-sta
 
 **ServiceName:** name used to reach the container in the container network
 (internal docker or balena network).  In the example spec in this repository,
-we have two sample container names, agile-core and agile-pap, in the top level
+we have several sample container names, agile-core, agile-pap and whitelisted-service in the top level
 hierarchy of the yml file.
 
 **OperationId**: identifier for a single call from the swagger
