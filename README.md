@@ -30,9 +30,12 @@ Requests should be mapped to the ServiceName such that requests starting with th
 
 https://github.com/Agile-IoT/agile-ui/blob/master/server.js#L54
 
-For example, a request starting with /agile-core/ should be forwarded to agile-core container in the local container network, if the policy decision call returns true.
+For example, a request starting with /agile-core/ should be forwarded to agile-core container in the local container network, if the policy decision call returns true. Specifically, if the enforcer gets a request to ``/agile-core/device/``, it must be forwarded to ``/device/`` to the agile-core sevice.
 
 Then, the enforcer must use the swagger specification to obtain relevant parameters of each call and create an object containintg entityId, entityType, field and method, according to the configuration provided. These four parameters should be passed the agile-sdk to evaluate a given policy in the agile-security PDP (https://github.com/Agile-IoT/agile-sdk/blob/master/DOCUMENTATION.md\#agile.policies.pdp.evaluate).
+
+The  enforcer should send the request with all the headers, body, etc. to the URI mentioned before (removing the component's name) to the port specified for each service (ServiceName-> port in the configuration below). So, to continue the example mentioned before, if the  ``/agile-core/device/`` request is received by the enforcer and it agile-core has the port 3300 specified, it should forward the request to ``agile-core:3300/device/`` (an internal service only reachable from the container network inside the gateway).
+
 
 If the policy decision point allows the interaction, the proxy forwards the exact same request (including headers, body, etc.) to the destination service (which is reachable under the ServiceName in the container network).
 
@@ -50,7 +53,7 @@ The YML file contains multiple ServiceName(s) in the top level. Each
 ServiceName needs to have:
 
 -   a pointer in the local file system to the swagger specification of that service under swagger\_api\_spec.
-
+-   the port where the service API is available  
 -   A list of calls, where each call is identified by the swagger
     * OperationId (unique in the context of the above
      swagger\_api\_spec), and each call has:
@@ -71,6 +74,8 @@ ServiceName needs to have:
 **ServiceName1:**
 
  swagger\_api\_spec: **Path1**
+
+ port: **PortNumber**
 
  **OperationId1:**
 
