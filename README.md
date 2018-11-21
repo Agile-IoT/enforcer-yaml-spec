@@ -39,7 +39,7 @@ The  enforcer should send the request with all the headers, body, etc. to the UR
 
 If the policy decision point allows the interaction, the proxy forwards the exact same request (including headers, body, etc.) to the destination service (which is reachable under the ServiceName in the container network).
 
-A the enforcement is done as a stand-alone service: this implies that the service needs to provide the proper CORS headers to allow cross-origin requests from external domains loading pages, e.g. the agile-ui. 
+A the enforcement is done as a stand-alone service: this implies that the service needs to provide the proper CORS headers to allow cross-origin requests from external domains loading pages, e.g. the agile-ui.  The CORS headers could be taken from an environment variable for example. 
 
 
 ## Configuration
