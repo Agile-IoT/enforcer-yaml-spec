@@ -27,6 +27,6 @@ agile-pap: #service name matching the resolvable (IP reachable) name if the serv
       entityType: {entityType}  #entityType is parsed from the swagger (according to “path spec”)
       field: actions.{field} #field is parsed from the swagger (according to “path spec”)
       method: read #can only be read or write.
-whitelisted-service:
+other-service: #service that does not require security checks in the enforcer.
   port: 8080
   whitelisted: yes  # This is the way to make the enforcer proxy all calls wihtout checking the token or without doing any security validations
