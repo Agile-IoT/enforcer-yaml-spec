@@ -1,32 +1,36 @@
-agile-core: #service name matching the resolvable (IP reachable) name if the service container
+agile-core: # service name matching the resolvable (IP reachable) name if the service container
   swagger_api_spec: ./agile-core.yml
   port: 3300
   calls:
-    #operationId matching an operationId in the referenced swagger_api_spec
-    Status: #OperationId from the swagger specification
-      entityId: {deviceId}  #deviceId is parsed from the swagger (according to “path spec”)
-      entityType: device  #a fixed string “device”
-      field: actions.status #a fixed string actions.status
-      method: read #can only be read or write.
-    Execute: #OperationId from the swagger specification
-      entityId: {deviceId}  #deviceId is parsed from the swagger (according to “path spec”)
-      entityType: device  
-      field: actions.{deviceId}.{command} #deviceId and command from the “path spec”. For a request to “/device/ble_11223344/execute/on” this should resolve to “ble_11223344.on” 
-      method: read #can only be read or write.
-    Register: #OperationId from the swagger specification
-      entityId: device.{overview.id}  #overview from RegisterPayload definition and id from DeviceOverview from the body
-      entityType: device  
-      field: actions.protocol.{protocol} # string including protocol from DeviceOverview in the swagger spec 
-      method: write #can only be read or write.
+    /device/{devideId}/status: # api path defined in the swagger api spec
+      get:
+        entityId: # list of strings | objects{path: string}
+          - path: url.deviceId # path where to look the value in
+        entityType: device # simple string, won’t get parsed
+        field: actions.status # simple string, won’t get parsed
+        method: read # simple string, won’t get parsed
+    /device/{deviceId}/execute/{command}: # api path defined in the swagger api spec
+      get:
+        entityId:
+          - path: url.deviceId # path where to look the value in
+        entityType: device
+        field:
+          - actions
+          - path: url.deviceId # path where to look the value in
+          - path: url.command # path where to look the value in
+        method: read # simple string, won’t get parsed
+    /devices: # api path defined in the swagger api spec
+      post:
+        entityId: # list of strings | objects{path: string}
+          - device # simple string, won’t get parsed
+          - path: body.payload.overview.id # path where to look the value in
+        entityType: device # simple string, won’t get parsed
+        field: # list of strings | objects{path: string}
+          - actions # simple string, won’t get parsed
+          - protocol # simple string, won’t get parsed
+          - path: body.payload.overview.protocol # path where to look the value in
+        method: write # simple string, won’t get parsed
 agile-pap: #service name matching the resolvable (IP reachable) name if the service container
   swagger_api_spec: ./pap-api.yml
   port: 3200
-  calls:
-    ReadFieldEntityPolicy:
-      entityId: {entityId}  #entityId is parsed from the swagger (according to “path spec”)
-      entityType: {entityType}  #entityType is parsed from the swagger (according to “path spec”)
-      field: actions.{field} #field is parsed from the swagger (according to “path spec”)
-      method: read #can only be read or write.
-other-service: #service that does not require security checks in the enforcer.
-  port: 8080
-  whitelisted: yes  # This is the way to make the enforcer proxy all calls wihtout checking the token or without doing any security validations
+  whitelisted: yes # This is the way to make the enforcer proxy all calls wihtout checking the token or without doing any security validations
