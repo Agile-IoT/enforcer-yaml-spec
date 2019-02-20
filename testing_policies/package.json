@@ -1,0 +1,14 @@
+{
+  "name": "testing_policies",
+  "version": "1.0.0",
+  "description": "These files have an easy way to test a policy that evaluates to true, and another one that evaluates to false using agile-security. This is what you need to do:",
+  "main": "sample-sec.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "agile-sdk": "^1.2.6"
+  }
+}
