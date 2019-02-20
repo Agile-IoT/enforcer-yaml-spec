@@ -59,13 +59,14 @@ The `path` property for any object must contain the path where the specified val
    ServiceName1: # e.g. agile-core | agile-ui | ...
       port: 1337 # port number
       calls:
-         get:
-            /first/path:
+         /first/path:
+            get:
                entityId: # string | list of <string | object{path: string}>
                entityType: # string | list of <string | object{path: string}>
                field: # string | list of <string | object{path: string}>
                method: # string | list of <string | object{path: string}>
-            /second/path:
+         /second/path:
+            post:
                entityId: # string | list of <string | object{path: string}>
                entityType: # string | list of <string | object{path: string}>
                field: # string | list of <string | object{path: string}>
