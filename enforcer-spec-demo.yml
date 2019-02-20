@@ -1,0 +1,141 @@
+agile-core: # service name matching the resolvable (IP reachable) name if the service container
+  swagger_api_spec: ./agile-core.yml
+  port: 8080
+  calls:
+    '/device/{deviceId}/status':
+      get:
+        entityId: # list of strings | objects{path: string}
+          - path: url.deviceId # path where to look the value in
+        entityType: device # simple string, won’t get parsed
+        field: actions.status # simple string, won’t get parsed
+        method: read # simple string, won’t get parsed
+
+    '/device/{deviceId}':
+      get:
+        entityId:
+          - path: url.deviceId
+        entityType: device
+        field: 
+	  - actions.components.readall
+        method: read
+    '/device/{deviceId}/connection':
+      parameters:
+      post:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field: actions.connect
+          method: write
+      delete:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field: actions.disconnect
+          method: write
+    '/device/{deviceId}/execute/{command}':
+      post:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - actions.execute
+            - path: url.command
+          method: write
+    '/device/{deviceId}/{componentId}/subscribe':
+      post:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - actions.components
+            - path: url.componentId
+            - subscribe
+          method: write
+      delete:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - action.components
+            - path: url.componentId
+            - unsubscribe
+          method: write
+    '/device/{deviceId}/{componentId}':
+      get:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - action.components
+            - path: url.componentId
+          method: read
+      post:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - action.components
+            - path: url.componentId
+          method: write
+    '/device/{deviceId}/{componentId}/lastUpdate':
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - action.components
+            - path: url.componentId
+          method: read
+    '/device/{deviceId}/lastUpdate':
+      get:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - action.components
+          method: read
+    /devices:
+      get:
+          entityId: self #this is how you can address a property of the whole gateway
+          entityType: gateway
+          field:
+            - actions.list
+          method: read
+      post:
+          entityId:
+            - body.overview.protocol
+            - body.overview.id
+          entityType: device
+          field:
+            - actions.register
+          method: write
+    /devices/typeof:
+      post:
+          entityId:
+            - body.protocol
+            - body.id
+          entityType: device
+          field:
+            - actions.type
+          method: read
+    '/devices/{deviceId}':
+      get:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - actions.definition
+          method: read
+      put:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - actions.definition
+          method: write
+      delete:
+          entityId:
+            - path: url.deviceId
+          entityType: device
+          field:
+            - actions.definition
+          method: write
